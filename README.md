@@ -54,7 +54,7 @@ vttablet-fresh-example-000001002        2/2       Running
 
 And to create the accompanying vschema:
 
-		`vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb`
+		vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb
 
 And to administer it using mysql client (going through vtgate)
 

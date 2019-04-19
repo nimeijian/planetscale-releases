@@ -29,9 +29,9 @@ planetscale-operator-6fbfd98864-9vlx5    1/1       Running
 prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 ```
 
-3. The complete PlanetScale operator CRD is included here as the file annotated-crd.yaml .  It provides a wealth of information regarding configuration, resources and terminology.
+3. The complete PlanetScale operator CRD is included here as the file `annotated-crd.yaml` .  It provides a wealth of information regarding configuration, resources and terminology.
 
-4. You establish a simple vitess cluster with cr_messagedb_keyspace.yaml and the following command:
+4. You establish a simple vitess cluster with `cr_messagedb_keyspace.yaml` and the following command:
 
 		kubectl create -f cr_messagedb_keyspace.yaml
 
@@ -49,7 +49,7 @@ vttablet-fresh-example-000001001        2/2       Running
 vttablet-fresh-example-000001002        2/2       Running
 ```
 
-5. Then create the actual database schema and vschema.  Use the vtctlclient application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
+5. Then create the actual database schema and vschema.  Use the `vtctlclient` application to connect and issue vitess commands to `vtctld`.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
 		vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
 

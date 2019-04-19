@@ -14,7 +14,7 @@ Once you have installed vitess and have access to the registry, you can quickly 
 kubectl create secret docker-registry psregistry --docker-server=registry.planetscale.com --docker-username=<your_new_id> —docker-email=<your_email> --docker-password=<your_new_password>
 ```
 
-2.  To load the various operators, including the PlanetScale operator, execute the following using the enclosed `operators.yaml`	file .
+2.  To load the various operators, including the PlanetScale operator, execute the following using the enclosed `operators.yaml` file .
 	
 		kubectl create -f operators.yaml
 
@@ -49,7 +49,7 @@ vttablet-fresh-example-000001001        2/2       Running
 vttablet-fresh-example-000001002        2/2       Running
 ```
 
-5. Then create the actual database schema and vschema.  Use the `vtctlclient` application to connect and issue vitess commands to `vtctld`.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
+5. Then create the actual database schema and vschema.  Use the `vtctlclient` application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
 		vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
 

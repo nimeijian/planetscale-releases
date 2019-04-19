@@ -9,16 +9,16 @@ You can install vitess locally by cloning the GitHub repository from  https://gi
 ### Instructions:
 Once you have installed vitess and have access to the registry, you can quickly establish a simple cluster as follows. 
 
-**1. In order to fetch the required images**, you will need to establish a PlanetScale registry access secret using your new login:
+1. In order to fetch the required images, you will need to establish a PlanetScale registry access secret using your new login:
 ```
 kubectl create secret docker-registry "psregistry" --docker-server="registry.planetscale.com" --docker-username="<your_new_id>" -—docker-email="<your_email>" --docker-password="<your_new_password>"
 ```
 with expected output:
 `secret/psregistry created`
 
-**2.  To load the various operators**, including the PlanetScale operator, you will execute the following kubectl commands:
+2.  To load the various operators, including the PlanetScale operator, you will execute the following kubectl commands:
 
-	* **2a. First**, establish various rbac permissions using the enclosed `rbac.yaml` file.
+	 2a. First, establish various rbac permissions using the enclosed `rbac.yaml` file.
 
 		`kubectl create -f rbac.yaml`
 
@@ -33,7 +33,7 @@ with expected output:
 	clusterrole.rbac.authorization.k8s.io "prometheus" created
 	clusterrolebinding.rbac.authorization.k8s.io "prometheus" created
 	```
-	* **2b. Next**, using the enclosed `operators.yaml` file.
+	 2b. Next, using the enclosed `operators.yaml` file.
 	
 		`kubectl create -f operators.yaml`
 
@@ -47,11 +47,9 @@ with expected output:
 	planetscale-operator-6fbfd98864-9vlx5    1/1       Running
 	prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 	```
-{{< info >}}
-**Note: the complete PlanetScale operator CRD** is included here as the file `annotated-crd.yaml` .  It provides a wealth of information regarding configuration, resources and terminology.
-{{< /info >}}
+Note: the complete PlanetScale operator CRD is included here as the file `annotated-crd.yaml` .  It provides a wealth of information regarding configuration, resources and terminology.
 
-**3. Establish a simple vitess cluster** with `cr_messagedb_keyspace.yaml` and the following command:
+3. Establish a simple vitess cluster with `cr_messagedb_keyspace.yaml` and the following command:
 
 		`kubectl create -f cr_messagedb_keyspace.yaml`
 
@@ -69,7 +67,7 @@ vttablet-fresh-example-000001001        2/2       Running
 vttablet-fresh-example-000001002        2/2       Running
 ```
 
-**4. Create the actual database schema and vschema.**  Use the `vtctlclient` application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
+4. Create the actual database schema and vschema.  Use the `vtctlclient` application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
 		`vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb`
 

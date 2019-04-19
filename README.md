@@ -51,7 +51,7 @@ with expected output:
 	planetscale-operator-6fbfd98864-9vlx5    1/1       Running
 	prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 	```
-Note: the complete PlanetScale operator CRD is included here as the file `annotated-crd.yaml` .  It provides a wealth of information regarding configuration, resources and terminology.
+**Note: the complete PlanetScale operator CRD** is included here as the file `annotated-crd.yaml` .  It provides a wealth of information regarding configuration, resources and terminology.
 
 3. Establish a simple vitess cluster with `cr_messagedb_keyspace.yaml` and the following command:
 
@@ -85,5 +85,6 @@ And to administer it using mysql client (going through vtgate)
 
 	mysql -h <server> -P <port> -u mysql_user -p
 	
-    and enter the password “mysql_password” at the prompt
+and enter the password “mysql_password” at the prompt
+
 

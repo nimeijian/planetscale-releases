@@ -10,7 +10,7 @@ You can install vitess locally by cloning the GitHub repository from  https://gi
 Once you have installed vitess and have access to the registry, you can quickly establish a simple cluster as follows. 
 
 1. In order to fetch the required images, you will need to establish a PlanetScale registry access secret using your new login:
-	kubectl create secret docker-registry psregistry --docker-server=registry.planetscale.com --docker-username=<your_new_id> —docker-email=<your_email> --docker-password=<your_new_password>
+		kubectl create secret docker-registry psregistry --docker-server=registry.planetscale.com --docker-username=<your_new_id> —docker-email=<your_email> --docker-password=<your_new_password>
 
 
 2.  To load the various operators, including the PlanetScale operator, execute the following using the enclosed operators.yaml	file .
@@ -32,7 +32,7 @@ prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 
 4. You establish a simple vitess cluster with cr_messagedb_keyspace.yaml and the following command:
 
-	kubectl create -f cr_messagedb_keyspace.yaml
+		kubectl create -f cr_messagedb_keyspace.yaml
 
 	This will create the following pods:
 
@@ -50,13 +50,15 @@ vttablet-fresh-example-000001002        2/2       Running
 
 5. Then create the actual database schema and vschema.  Use the vtctlclient application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
-	vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
+		vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
 
 And to create the accompanying vschema:
 
-	vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb
+		vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb
 
 And to administer it using mysql client (going through vtgate)
-	mysql -h <server> -P <port> -u mysql_user -p
+
+		mysql -h <server> -P <port> -u mysql_user -p
+	
     and enter the password “mysql_password” at the prompt
 

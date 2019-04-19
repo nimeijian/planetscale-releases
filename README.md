@@ -13,6 +13,8 @@ Once you have installed vitess and have access to the registry, you can quickly 
 ```
 kubectl create secret docker-registry "psregistry" --docker-server="registry.planetscale.com" --docker-username="<your_new_id>" -—docker-email="<your_email>" --docker-password="<your_new_password>"
 ```
+with expected output:
+`secret/psregistry created`
 
 2.  To load the various operators, including the PlanetScale operator, execute the following using the enclosed `operators.yaml` file .
 	

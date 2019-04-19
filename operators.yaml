@@ -1,0 +1,416 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: planetscale-operator
+rules:
+- apiGroups:
+  - planetscale.com
+  resources:
+  - "*"
+  verbs:
+  - "*"
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - "*"
+  verbs:
+  - "*"
+- apiGroups:
+  - etcd.database.coreos.com
+  resources:
+  - "*"
+  verbs:
+  - "*"  
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  - persistentvolumes
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  verbs:
+  - "*"
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - "*"
+- apiGroups:
+  - extensions
+  resources:
+  - deployments
+  verbs:
+  - "*"
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - "*"
+  verbs:
+  - "*"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: default-account-planetscale-operator
+subjects:
+- kind: ServiceAccount
+  name: default
+roleRef:
+  kind: Role
+  name: planetscale-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: planetscale-persistent-volume
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  - persistentvolumeclaims
+  verbs:
+  - "*"
+- apiGroups:
+  - "*"
+  resources:
+  - "*"
+  verbs:
+  - "*"
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: default-account-planetscale-pv
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: planetscale-persistent-volume
+  apiGroup: rbac.authorization.k8s.io
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: prometheus-operator
+rules:
+- apiGroups:
+    - rbac.authorization.k8s.io
+  resources:
+    - "*"
+  verbs:
+    - "*"  
+- apiGroups:
+  - extensions
+  resources:
+  - thirdpartyresources
+  - deployments
+  verbs:
+  - "*"
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - alertmanagers
+  - prometheuses
+  - prometheuses/finalizers
+  - alertmanagers/finalizers
+  - servicemonitors
+  - prometheusrules
+  verbs:
+  - '*'  
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs: ["*"]
+- apiGroups: [""]
+  resources:
+  - configmaps
+  - secrets
+  verbs: ["*"]
+- apiGroups: [""]
+  resources:
+  - pods
+  verbs: ["list", "delete", "watch"]
+- apiGroups: [""]
+  resources:
+  - services
+  - endpoints
+  verbs: ["get", "create", "update", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - nodes
+  verbs: ["list", "watch"]
+- apiGroups: [""]
+  resources:
+  - namespaces
+  verbs: ["list"]
+- nonResourceURLs:
+  - /metrics
+  verbs: ["get"]
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: prometheus-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus-operator
+subjects:
+- kind: ServiceAccount
+  name: prometheus-operator
+  namespace: default
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: prometheus
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - alertmanagers
+  - prometheuses
+  - prometheuses/finalizers
+  - alertmanagers/finalizers
+  - servicemonitors
+  - prometheusrules
+  verbs:
+  - '*'
+- apiGroups: [""]
+  resources:
+  - nodes
+  - services
+  - endpoints
+  - pods
+  - namespaces
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - configmaps
+  verbs: ["get"]
+- nonResourceURLs: ["/metrics","/federate"]
+  verbs: ["get"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: default
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: psclusters.planetscale.com
+spec:
+  group: planetscale.com
+  names:
+    kind: PsCluster
+    listKind: PsClusterList
+    plural: psclusters
+    singular: pscluster
+  scope: Namespaced
+  version: v1alpha1
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etcd-operator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: etcd-operator
+    spec:
+      imagePullSecrets:
+        - name: psregistry       
+      containers:
+      - name: etcd-operator
+        #image: quay.io/coreos/etcd-operator:latest
+        image: registry.planetscale.com/etcd/etcd-operator:latest
+        imagePullPolicy: IfNotPresent
+        command:
+        - etcd-operator
+        # Uncomment to act for resources in all namespaces. More information in doc/clusterwide.md
+        #- -cluster-wide
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etcd-backup-operator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: etcd-backup-operator
+    spec:
+      imagePullSecrets:
+        - name: psregistry       
+      containers:
+      - name: etcd-backup-operator
+        #image: quay.io/coreos/etcd-operator:latest        
+        image: registry.planetscale.com/etcd/etcd-operator:latest        
+        command:
+        - etcd-backup-operator
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etcd-restore-operator
+  labels:
+    name: etcd-restore-operator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: etcd-restore-operator
+    spec:
+      imagePullSecrets:
+        - name: psregistry       
+      containers:
+      - name: etcd-restore-operator
+        #image: quay.io/coreos/etcd-operator:latest
+        image: registry.planetscale.com/etcd/etcd-operator:latest                
+        command:
+        - etcd-restore-operator
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planetscale-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: planetscale-operator
+  template:
+    metadata:
+      labels:
+        name: planetscale-operator
+    spec:
+      imagePullSecrets:
+        - name: psregistry 
+      containers:
+        - name: planetscale-operator
+          image: registry.planetscale.com/planetscale/operator:latest
+          command:
+          - planetscale-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus-operator
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: prometheus-operator
+  name: prometheus-operator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        k8s-app: prometheus-operator
+    spec:
+      containers:
+      - args:
+        - --kubelet-service=kube-system/kubelet
+        - --config-reloader-image=quay.io/coreos/configmap-reload:v0.0.1
+        image: quay.io/coreos/prometheus-operator:v0.28.0
+        name: prometheus-operator
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: prometheus-operator
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus

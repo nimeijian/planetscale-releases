@@ -50,11 +50,11 @@ vttablet-fresh-example-000001002        2/2       Running
 
 5. Then create the actual database schema and vschema.  Use the vtctlclient application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
-	vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
+		vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb
 
 And to create the accompanying vschema:
 
-	vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb
+		`vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb`
 
 And to administer it using mysql client (going through vtgate)
 

@@ -36,7 +36,7 @@ prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 
 	This will create the following pods:
 
-	```
+```
 NAME                                    READY     STATUS 
 proxy-deployment-fresh                  1/1       Running
 vtctld-fresh-example-000000000          1/1       Running
@@ -46,8 +46,7 @@ vttablet-fresh-example-000000001        2/2       Running
 vttablet-fresh-example-000000002        2/2       Running
 vttablet-fresh-example-000001001        2/2       Running
 vttablet-fresh-example-000001002        2/2       Running
-	```
-
+```
 
 5. Then create the actual database schema and vschema.  Use the vtctlclient application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 

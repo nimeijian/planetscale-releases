@@ -20,7 +20,7 @@ with expected output:
 
 	 2a. First, establish various rbac permissions using the enclosed `rbac.yaml` file.
 
-		`kubectl create -f rbac.yaml`
+		```kubectl create -f rbac.yaml```
 
 	and expect the following output:
 	```
@@ -35,7 +35,7 @@ with expected output:
 	```
 	 2b. Next, using the enclosed `operators.yaml` file.
 	
-		`kubectl create -f operators.yaml`
+		```kubectl create -f operators.yaml```
 
 	`kubectl get pods`  should show the following:
 
@@ -51,7 +51,7 @@ Note: the complete PlanetScale operator CRD is included here as the file `annota
 
 3. Establish a simple vitess cluster with `cr_messagedb_keyspace.yaml` and the following command:
 
-		`kubectl create -f cr_messagedb_keyspace.yaml`
+		```kubectl create -f cr_messagedb_keyspace.yaml```
 
 	This will create the following pods:
 
@@ -69,15 +69,15 @@ vttablet-fresh-example-000001002        2/2       Running
 
 4. Create the actual database schema and vschema.  Use the `vtctlclient` application to connect and issue vitess commands to vtctld.  To enable this, you will need to either use kubectl to port-forward to the vtctld pod, or you can create an externally visible Service to communicate with vtctld.
 
-		`vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb`
+		```vtctlclient -server sever:port ApplySchema -sql "$(cat create_test_table.sql)" messagedb```
 
 And to create the accompanying vschema:
 
-		`vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb`
+		```vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb```
 
 And to administer it using mysql client (going through vtgate)
 
-		`mysql -h <server> -P <port> -u mysql_user -p`
+		```mysql -h <server> -P <port> -u mysql_user -p```
 	
     and enter the password “mysql_password” at the prompt
 

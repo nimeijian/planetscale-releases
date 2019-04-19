@@ -4,7 +4,7 @@
 * Obtain access to the planetscale repository.   Please sign up for an account at https://registry.planetscale.com and send us the account name. We will process your request and authorize it, with a further email response back.
 
 * In the meantime, you should also install vitess locally.  This will allow you to use the vitess command line tools, especially vtctlclient .
-You can install vitess locally by cloning the GitHub repository from  https://github.com/planetscale/vitess-releases , and running the associate shell script ( install_latest.sh )
+You can install vitess locally by cloning the GitHub repository from  https://github.com/planetscale/vitess-releases , and running the associate shell script ( `install_latest.sh` )
 
 ### Instructions:
 Once you have installed vitess and have access to the registry, you can quickly establish a simple cluster as follows. 

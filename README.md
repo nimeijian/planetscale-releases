@@ -83,7 +83,7 @@ And to create the accompanying vschema:
 
 And to administer it using mysql client (going through vtgate)
 
-	mysql -h <server> -P <port> -u **mysql_user** -p
+	mysql -h <server> -P <port> -u mysql_user -p
 	
 and enter the password “**mysql_password**” at the prompt
 

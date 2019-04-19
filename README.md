@@ -19,7 +19,7 @@ Once you have installed vitess and have access to the registry, you can quickly 
 
 	kubectl get pods  should show the following:
 
-	````
+	```
 NAME                                     READY     STATUS 
 etcd-backup-operator-59cf44997f-cwm4m    1/1       Running
 etcd-operator-6cb76654cd-vkzqg           1/1       Running

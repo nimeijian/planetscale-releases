@@ -19,14 +19,14 @@ Once you have installed vitess and have access to the registry, you can quickly 
 
 	kubectl get pods  should show the following:
 
-	```
+```
 NAME                                     READY     STATUS 
 etcd-backup-operator-59cf44997f-cwm4m    1/1       Running
 etcd-operator-6cb76654cd-vkzqg           1/1       Running
 etcd-restore-operator-5dddc644c9-kb64g   1/1       Running
 planetscale-operator-6fbfd98864-9vlx5    1/1       Running
 prometheus-operator-78f9dd5bfb-742cr     1/1       Running
-	```
+```
 
 3. The complete PlanetScale operator CRD is included here as the file annotated-crd.yaml .  It provides a wealth of information regarding configuration, resources and terminology.
 

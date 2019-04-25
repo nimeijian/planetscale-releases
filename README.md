@@ -9,9 +9,9 @@ You can install vitess locally by cloning the GitHub repository from  https://gi
 ### Instructions:
 Once you have installed vitess and have access to the registry, you can quickly establish a simple cluster as follows. 
 
-1. In order to fetch the required images, you will need to establish a PlanetScale registry access secret using your new login:
+1. In order to fetch the required images, you will need to establish a PlanetScale registry access secret using your new login:  (note the email field is in single quotes)
 ```
-kubectl create secret docker-registry "psregistry" --docker-server="registry.planetscale.com" --docker-username="<your_new_id>" -—docker-email="<your_email>" --docker-password="<your_new_password>"
+kubectl create secret docker-registry psregistry --docker-server=registry.planetscale.com --docker-username=your_new_id -—docker-email='your_email' --docker-password=your_new_password
 ```
 with expected output:
 `secret/psregistry created`

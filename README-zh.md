@@ -50,12 +50,12 @@ _password
 	`kubectl get pods` 应显示下列结果:
 
 	```
-	NAME                                     READY     STATUS 
-	etcd-backup-operator-59cf44997f-cwm4m    1/1       Running
-	etcd-operator-6cb76654cd-vkzqg           1/1       Running
-	etcd-restore-operator-5dddc644c9-kb64g   1/1       Running
-	planetscale-operator-6fbfd98864-9vlx5    1/1       Running
-	prometheus-operator-78f9dd5bfb-742cr     1/1       Running
+	NAME                                  	       READY     STATUS 
+	etcd-backup-operator-59cf44997f-cwm4m          1/1       Running
+	etcd-operator-6cb76654cd-vkzqg                 1/1       Running
+	etcd-restore-operator-5dddc644c9-kb64g         1/1       Running
+	planetscale-operator-6fbfd98864-9vlx5          1/1       Running
+	prometheus-operator-78f9dd5bfb-742cr           1/1       Running
 	```
 
 **注意:完整的 PlanetScale 操作符 CRD** 包含在这里,并显示为annotated-crd.yaml。它提供关于配置、资源和术语的丰富信息。

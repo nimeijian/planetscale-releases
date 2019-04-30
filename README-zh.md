@@ -70,17 +70,17 @@ _password
 
 	这将创建下列 pod:
 
-```
-NAME                                    READY     STATUS 
-proxy-deployment-fresh                  1/1       Running
-vtctld-fresh-example-000000000          1/1       Running
-vtgate-fresh-example-000000000          1/1       Running
-vtgate-fresh-example-000000001          1/1       Running
-vttablet-fresh-example-000000001        2/2       Running
-vttablet-fresh-example-000000002        2/2       Running
-vttablet-fresh-example-000001001        2/2       Running
-vttablet-fresh-example-000001002        2/2       Running
-```
+	```
+	NAME                                    READY     STATUS 
+	proxy-deployment-fresh                  1/1       Running
+	vtctld-fresh-example-000000000          1/1       Running
+	vtgate-fresh-example-000000000          1/1       Running
+	vtgate-fresh-example-000000001          1/1       Running
+	vttablet-fresh-example-000000001        2/2       Running
+	vttablet-fresh-example-000000002        2/2       Running
+	vttablet-fresh-example-000001001        2/2       Running
+	vttablet-fresh-example-000001002        2/2       Running
+	```
 
 4. 创建实际的数据库 schema 和 Vschema。使用 `vtctlclient` 应用程序来连接和发送 Vitess 命令到 vtctld。要做到这一点,你需要使用 `kubectl`将端口转发到 vtctld pod,或者建立一个外部可见的 Service 与 vtctld 通信。
 
@@ -94,7 +94,7 @@ vttablet-fresh-example-000001002        2/2       Running
 
 如要使用 mysql 客户端对其管理(通过 vtgate)
 
-mysql -h <server> -P <port> -u mysql_user -p
+	`mysql -h <server> -P <port> -u mysql_user -p`
 
 并按提示输入密码“**mysql_password**”
 

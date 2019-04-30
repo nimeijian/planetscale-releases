@@ -12,16 +12,13 @@ GitHub 存储库,从而在本地安装 Vitess, 并运行关联shell脚本`(insta
 
 1. 为了提取所需要的图片,你需要使用新登录名创建一个 PlanetScale 注册表访问密钥:(注意电子邮箱字段为单引号)
 
-```
-kubectl create secret docker-registry psregistry --docker-
-server=registry.planetscale.com --docker-username=your_new
-_id -—docker-email='your_email' --docker-password=your_new
-_password
-```
+	```
+	kubectl create secret docker-registry psregistry --docker-server=registry.planetscale.com --docker-username=your_new_id -—docker-email='your_email' --docker-password=your_new_password
+	```
 
 输出结果应当为:
 
-`secret/psregistry created`
+	`secret/psregistry created`
 
 2. 要载入各种操作符,包括 PlanetScale 操作符,你需要执行下列`kubectl`命令:
 
@@ -90,11 +87,15 @@ _password
 
 如要创建搭配的 vschema:
 
+	```
 	vtctlclient -server server:port  ApplyVSchema -vschema  "$(cat create_vschema.json)" messagedb
+	```
 
 如要使用 mysql 客户端对其管理(通过 vtgate)
 
-	`mysql -h <server> -P <port> -u mysql_user -p`
+	```
+	mysql -h <server> -P <port> -u mysql_user -p
+	```
 
 并按提示输入密码“**mysql_password**”
 

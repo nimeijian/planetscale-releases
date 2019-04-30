@@ -32,6 +32,8 @@ _password
 	```
 	
 	输出结果应当为:
+
+	```
 	role.rbac.authorization.k8s.io "planetscale-operator" created
 	rolebinding.rbac.authorization.k8s.io "default-account-planetscale-operator" created
 	clusterrole.rbac.authorization.k8s.io "planetscale-persistent-volume" created
@@ -41,7 +43,7 @@ _password
 	clusterrole.rbac.authorization.k8s.io "prometheus" created
 	clusterrolebinding.rbac.authorization.k8s.io "prometheus" created
 	```
-	2b. 接下来,使用随附的 `operators.yaml` 文件。
+      2b. 接下来,使用随附的 `operators.yaml` 文件。
 	
 	```
 	kubectl create -f operators.yaml

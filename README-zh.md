@@ -56,7 +56,6 @@ _password
 	planetscale-operator-6fbfd98864-9vlx5    1/1       Running
 	prometheus-operator-78f9dd5bfb-742cr     1/1       Running
 	```
-
 **注意:完整的 PlanetScale 操作符 CRD** 包含在这里,并显示为annotated-crd.yaml。它提供关于配置、资源和术语的丰富信息。
 
 3. 使用 `cr_messagedb_keyspace.yaml` 及下列命令建立简单的 Vitess 集群:

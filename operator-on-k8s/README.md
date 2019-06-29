@@ -1,4 +1,4 @@
-## Running your own kubernetes cluster with the PlanetScale operator
+## Running Vitess on your own kubernetes cluster with the PlanetScale operator
 
 ### Preliminaries:
 * Obtain access to the planetscale repository.   Please sign up for an account at https://registry.planetscale.com and send us the account name. We will process your request and authorize it, with a further email response back.

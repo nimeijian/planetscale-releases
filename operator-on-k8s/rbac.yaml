@@ -1,3 +1,4 @@
+---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
@@ -181,8 +182,9 @@ subjects:
 - kind: ServiceAccount
   name: prometheus-operator
   namespace: default
----
 
+---
+#simpler version of ClusterRole for prometheus
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
@@ -202,8 +204,8 @@ rules:
   verbs: ["get"]
 - nonResourceURLs: ["/metrics", "/federate"]
   verbs: ["get"]
----
 
+---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:

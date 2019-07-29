@@ -64,7 +64,7 @@ Started zk server 3
 
 5.  Start the vttablet that is to be associated with your mysqld:
 
-    This script establishes a `commerce` keyspace that matched a `commerce` mysqld instance, using the example of our [Tutorial](https://vitess.io/docs/tutorials/local/).  
+    This script establishes a `commerce` keyspace that matches a `commerce` mysqld instance, using the example of our [Tutorial](https://vitess.io/docs/tutorials/local/).  
     **IMPORTANT**: You can modify this script to match the naming of your *actual* database.
 
     `./vttablet-external-up.sh`

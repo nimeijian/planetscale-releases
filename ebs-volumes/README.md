@@ -22,7 +22,7 @@ With a `mount` command, you will notice with this example that vtdataroot storag
 otherwise, it will be mounted on /dev/nvme0n1p1 which appears to be ephemeral: 
 `/vt/vtdataroot type xfs (rw,noatime,attr2,inode64,noquota)`
 
-Arranging for this storage involves three separate steps.  
+Arranging for this storage involves three separate steps:
 1. Ensure you have permissions allowing AWS volume auto-provisioning.
 2. Declare the existence of a new StorageClass, independent of the PsCluster.  
 3. Establish PsCluster declaration itself, utilizing that StorageClass.  We present these below as two .yaml files:

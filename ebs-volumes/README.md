@@ -1,13 +1,17 @@
 ## Kubernetes (EKS): Establishing external storage for Vitess databases on AWS EBS 
 
 
-### Overview:
+### Overview
+
 Following is an example of a simple three-vttablet Vitess keyspace using AWS EKS, with storage on EBS volumes.  This allows any of the vttablet resources to fail (e.g, a container restart, or pod or node replacement), and upon re-creation they resume with the database data prior to the failure.
+
+**Note:** This example employs operator**_1._**  operator**_2_**  is nearing availability.  This example will be updated accordingly.
+
 
 This example is specific to EKS, but does illustrate how it may be done on other host platforms.  General concepts are presented on the [kubernetes]( https://kubernetes.io ) site as [Volume Snapshots]( https://kubernetes.io/docs/concepts/storage/volumes/)
 and [Persistent Volumes]( https://kubernetes.io/docs/concepts/storage/volume-snapshots/).
 
-In general baseline storage for EKS is based on EBS, but is ephemeral.   However, if you call for it expicitly as in this example, it survives the restart.
+In general baseline storage for EKS is based on EBS, but is ephemeral.   However, if you call for it expicitly as in this example, it survives the restart.  EBS is simply the example volume that we use in our standard storage class that we define. This can be configured to other volume types if you so choose.
 In essence, the essential /vt/vtdataroot contents are preserved and remounted as before.  If not called as defined below, the restart will initiate with new storage, and hence a new /vt/vtdataroot.
 
 You can learn a bit more info on EBS volumes here:
@@ -18,7 +22,10 @@ With a `mount` command, you will notice with this example that vtdataroot storag
 otherwise, it will be mounted on /dev/nvme0n1p1 which appears to be ephemeral: 
 `/vt/vtdataroot type xfs (rw,noatime,attr2,inode64,noquota)`
 
-Arranging for this storage involves two separate steps.  First, one must declare the existence of a new StorageClass, independent of the PsCluster.  Then, the PsCluster declaration itself must utilize that StorageClass.  We present these below as two .yaml files:
+Arranging for this storage involves three separate steps.  
+1. Ensure you have permissions allowing AWS volume auto-provisioning.
+2. Declare the existence of a new StorageClass, independent of the PsCluster.  
+3. Establish PsCluster declaration itself, utilizing that StorageClass.  We present these below as two .yaml files:
 
 **StorageClass_declaration.yaml**
 ```

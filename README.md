@@ -11,3 +11,9 @@ This directory contains various training and information resources for PlanetSca
 ### vitess-external-db
 ...provides a simple example of establishing a vitess cluster with an existing, running mysqld
 
+### external-db
+...is an example of establishing external storage for Vitess databases on AWS EBS.
+
+
+
+

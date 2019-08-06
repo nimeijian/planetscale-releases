@@ -1,8 +1,10 @@
 #!/bin/bash
-echo "----------------
-echo "Note your env in case of problems:
+export VDATAROOT=${HOME}/vtdataroot
+
+echo "----------------"
+echo "Note your env in case of problems.  All the following should be non-null:"
 echo "VTROOT="$VTROOT
-echo "VDATAROOT="$VTDATAROOT
+echo "VDATAROOT="${HOME}/vtdataroot
 echo "VTTOP="$VTTOP
 echo "----------------"
 
@@ -12,7 +14,7 @@ CELL="cell1"
 GRPC_PORT=15999
 WEB_PORT=15000
 MYSQL_AUTH_PARAM=""
-BACKUP_DIR="/Users/chrisr/vtdataroot/backups"
+BACKUP_DIR="${HOME}/${VTDATAROOT}/backups"
 
 echo "More environment set from this script:"
 echo "HOSTNAME="$HOSTNAME
@@ -27,8 +29,8 @@ echo "Starting vtctld..."
 
 echo "----------------"
 
-mkdir -p ${BACKUP_DIR}
 mkdir -p $VTDATAROOT/tmp
+mkdir -p ${BACKUP_DIR}
 
 ${VTROOT}/bin/vtctld \
   ${TOPOLOGY_FLAGS} \

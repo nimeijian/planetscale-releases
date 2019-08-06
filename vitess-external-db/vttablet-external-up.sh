@@ -1,16 +1,18 @@
 #!/bin/bash
+export VDATAROOT=${HOME}/vtdataroot
 echo "----------------
 echo "Note your env in case of problems:
 echo "VTROOT="$VTROOT
-echo "VDATAROOT="$VTDATAROOT
+echo "VDATAROOT="$HOME/vtdataroot
+
 echo "VTTOP="$VTTOP
 echo "----------------"
 
 export VT_MYSQL_ROOT=/usr/local/opt/mysql@5.6
 export MYSQL_FLAVOR=MySQL56
 
-export mysql_user=chrisr
-export mysql_pass=chrisr
+export mysql_user=ext_user
+export mysql_pass=ext_password
 
 MYSQL_AUTH_PARAM=""
 
@@ -34,7 +36,7 @@ SHARD=0
 TABLET_TYPE=replica
 EXTRA_PARAMS="-mycnf_server_id 100"
 EXTERNAL_MYSQL=1
-BACKUP_DIR="/Users/chrisr/vtdataroot/backups"
+BACKUP_DIR="$VTDATAROOT/backups"
 
 # Variables used below would be assigned values above this line
 BACKUP_PARAMS_S3="-backup_storage_implementation s3 -s3_backup_aws_region us-west-2 -s3_backup_storage_bucket vtlabs-vtbackup"

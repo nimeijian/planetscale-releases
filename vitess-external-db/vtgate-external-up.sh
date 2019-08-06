@@ -1,8 +1,8 @@
 #!/bin/bash
-
+export VDATAROOT=${HOME}/vtdataroot
 # This is an example script that starts a single vtgate.
-echo "----------------
-echo "Note your env in case of problems:
+echo "----------------"
+echo "Note your env in case of problems:"
 echo "VTROOT="$VTROOT
 echo "VDATAROOT="$VTDATAROOT
 echo "VTTOP="$VTTOP
@@ -19,10 +19,6 @@ BACKUP_DIR="${VTDATAROOT}/backups"
 
 mkdir -p $VTDATAROOT/tmp
 mkdir -p ${BACKUP_DIR}
-
-#                                    {"user":      [{"Password": "xxx"}          ]}
-#  -mysql_auth_server_static_string '{"mysql_user":[{"Password": "mysql_password"}]}' \
-# {"mysql_user":{"Password":"mysql_password"}}
 
 # Start vtgate.
 $VTROOT/bin/vtgate \

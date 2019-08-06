@@ -5,7 +5,7 @@
 
 Following is an example of a simple three-vttablet Vitess keyspace using AWS EKS, with storage on EBS volumes.  This allows any of the vttablet resources to fail (e.g, a container restart, or pod or node replacement), and upon re-creation they resume with the database data prior to the failure.
 
-**Note:** This example employs operator**_1._**  operator**_2_**  is nearing availability.  This example will be updated accordingly.
+**Note:** This example employs operator_1._  operator_2_  is nearing availability.  This example will be updated accordingly.
 
 
 This example is specific to EKS, but does illustrate how it may be done on other host platforms.  General concepts are presented on the [kubernetes]( https://kubernetes.io ) site as [Volume Snapshots]( https://kubernetes.io/docs/concepts/storage/volumes/)

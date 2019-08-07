@@ -62,7 +62,6 @@ It is not clear whether the command line flags are needed in this case.
 
 **a)** When initializing a brand new vttablet with a companion new mysqld, Vitess conventions will initialize the mysqld instance with a particular file: init_db.sql, usually found at ../vitess.io/vitess/config/init_db.sql 
 The user accounts created are as follows, with appropriate database permissions, and correspond to the command line flags above :
-
 ```
 vt_allprivs
 vt_app

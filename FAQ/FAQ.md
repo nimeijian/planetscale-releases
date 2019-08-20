@@ -365,6 +365,14 @@ Not in beta any more :). Some things under /doc are outdated, we're working on t
 ### What part of vttablet auto restarts mysqld slave thread if it is not running?
 replication reporter, which can be enabled with `-enable_replication_reporter`
 
-
+### I'm running into an issue when trying to ListBackups.  Vttablets are set up to backup to S3, but when I try to ListBackups after running BackupShard, the backups don't show up. Is this by design or a bug? [#support-reblox](https://planetscale.slack.com/archives/CHF49HS82/p1563397703089700)
+the vtctld process needs access to the same s3  bucket etc to be able to see the backups, which means it needs to be given the same cmdline params
+```
+  -s3_backup_aws_region string
+  -s3_backup_server_side_encryption string
+  -s3_backup_storage_bucket string
+  -s3_backup_storage_root string
+```
+So once you restart your vtctld with the needed params, it will list backups as expected.
 
 [Top](#top)
